@@ -1,0 +1,6 @@
+framework module Pods_TodayTweet {
+  umbrella header "Pods-TodayTweet-umbrella.h"
+
+  export *
+  module * { export * }
+}
