@@ -7,34 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180297E4250360B000234B62 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180297E3250360B000234B62 /* TweetService.swift */; };
+		1801F2402634EE5F001B652A /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801F23F2634EE5F001B652A /* MainTabController.swift */; };
+		1801F2472634EF16001B652A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801F2462634EF16001B652A /* NotificationViewController.swift */; };
 		1819660A2462A344007CE023 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181966092462A344007CE023 /* AppDelegate.swift */; };
 		1819660C2462A344007CE023 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819660B2462A344007CE023 /* SceneDelegate.swift */; };
-		181966112462A344007CE023 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1819660F2462A344007CE023 /* Main.storyboard */; };
 		181966132462A345007CE023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181966122462A345007CE023 /* Assets.xcassets */; };
 		181966162462A345007CE023 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181966142462A345007CE023 /* LaunchScreen.storyboard */; };
 		181966262462A689007CE023 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181966252462A689007CE023 /* FeedController.swift */; };
 		1819662E2462B196007CE023 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1819662D2462B196007CE023 /* Extensions.swift */; };
+		18753D652602EDD60024A4B7 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18753D642602EDD60024A4B7 /* ZoomAnimator.swift */; };
+		18753D692602EE0A0024A4B7 /* ZoomDismissalInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18753D682602EE0A0024A4B7 /* ZoomDismissalInteractionController.swift */; };
+		18753D6C2602EE390024A4B7 /* ZoomTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18753D6B2602EE390024A4B7 /* ZoomTransitionController.swift */; };
+		18753D6F2602EE790024A4B7 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18753D6E2602EE790024A4B7 /* PhotoCollectionViewCell.swift */; };
+		18753D722602EEB50024A4B7 /* PhotoPageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18753D712602EEB50024A4B7 /* PhotoPageContainerViewController.swift */; };
+		18753D752602EEF10024A4B7 /* PhotoZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18753D742602EEF10024A4B7 /* PhotoZoomViewController.swift */; };
+		187C338525E9060300C30C4D /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C338425E9060300C30C4D /* UserListCell.swift */; };
 		187E254F246808E400BB2D30 /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E254E246808E400BB2D30 /* ProfileFilterView.swift */; };
 		187E255124680BB600BB2D30 /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E255024680BB600BB2D30 /* ProfileFilterCell.swift */; };
-		187E255324681D1B00BB2D30 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E255224681D1B00BB2D30 /* ProfileHeaderViewModel.swift */; };
 		188054FC246A78FE00C0EDEC /* TweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188054FB246A78FE00C0EDEC /* TweetController.swift */; };
 		188054FE246A7BF600C0EDEC /* TweetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188054FD246A7BF600C0EDEC /* TweetHeader.swift */; };
 		1880CC0E2467BF2D00579560 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880CC0D2467BF2D00579560 /* ProfileController.swift */; };
 		1880CC102467C82F00579560 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880CC0F2467C82F00579560 /* ProfileHeader.swift */; };
-		18816530246ADBAE007507AF /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1881652F246ADBAE007507AF /* UploadTweetViewModel.swift */; };
-		18828F1924B02192000E22E7 /* default_V0.realm in Resources */ = {isa = PBXBuildFile; fileRef = 18828F1824B02192000E22E7 /* default_V0.realm */; };
+		1882320A263639740072A99A /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18823209263639740072A99A /* NotificationCell.swift */; };
 		18849C01246642D000656F0C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18849C00246642D000656F0C /* User.swift */; };
 		18849C03246643FF00656F0C /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18849C02246643FF00656F0C /* Tweet.swift */; };
-		18849C05246648C100656F0C /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18849C04246648C100656F0C /* TweetCell.swift */; };
 		1886E1A22466050100FF02A2 /* UploadTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886E1A12466050100FF02A2 /* UploadTweetController.swift */; };
-		1886E1A42466134A00FF02A2 /* CaptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886E1A32466134A00FF02A2 /* CaptionTextView.swift */; };
+		188B19EE25D9633200751AD5 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B19ED25D9633200751AD5 /* UserListController.swift */; };
+		188B19F125D9636400751AD5 /* UserCreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B19F025D9636400751AD5 /* UserCreateController.swift */; };
+		188B6F9D25EA37D700AE2CD0 /* CurrentUserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B6F9C25EA37D700AE2CD0 /* CurrentUserID.swift */; };
+		188CFAFE25FCD09F00639D8C /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CFAFD25FCD09F00639D8C /* ImageCell.swift */; };
 		189F203624ACBF0C00D2A0CE /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F203524ACBF0C00D2A0CE /* EditProfileController.swift */; };
 		189F203824ACBF6200D2A0CE /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F203724ACBF6200D2A0CE /* EditProfileHeader.swift */; };
 		189F203A24ACBF9900D2A0CE /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F203924ACBF9900D2A0CE /* EditProfileCell.swift */; };
-		189F203C24ACBFC800D2A0CE /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F203B24ACBFC800D2A0CE /* EditProfileViewModel.swift */; };
-		189F204024ACC14900D2A0CE /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F203F24ACC14900D2A0CE /* InputTextView.swift */; };
-		18F328EF24867FDD006B03FC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F328EE24867FDD006B03FC /* Utilities.swift */; };
+		18ADE2F025EB4EC3007E71E0 /* EditProfileFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ADE2EF25EB4EC3007E71E0 /* EditProfileFooter.swift */; };
+		18BB7BB025ED0FB400844579 /* UploadTweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BB7BAF25ED0FB400844579 /* UploadTweetCell.swift */; };
+		18EB7CB42601BB3000FAEC4B /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EB7CB32601BB3000FAEC4B /* TweetCell.swift */; };
+		18F328EF24867FDD006B03FC /* CostomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F328EE24867FDD006B03FC /* CostomView.swift */; };
 		A63DEC0EB53988AC8F83B8DA /* Pods_TweetMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183617D8074548632EB72943 /* Pods_TweetMemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,38 +61,46 @@
 
 /* Begin PBXFileReference section */
 		061530C61EB5C2E761CFDB96 /* Pods-TweetMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TweetMemo.debug.xcconfig"; path = "Target Support Files/Pods-TweetMemo/Pods-TweetMemo.debug.xcconfig"; sourceTree = "<group>"; };
-		180297E3250360B000234B62 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
+		1801F23F2634EE5F001B652A /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		1801F2462634EF16001B652A /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		181966062462A344007CE023 /* TweetMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TweetMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181966092462A344007CE023 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1819660B2462A344007CE023 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		181966102462A344007CE023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		181966122462A345007CE023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		181966152462A345007CE023 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		181966172462A345007CE023 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		181966252462A689007CE023 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		1819662D2462B196007CE023 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		183617D8074548632EB72943 /* Pods_TweetMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TweetMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18753D642602EDD60024A4B7 /* ZoomAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomAnimator.swift; sourceTree = "<group>"; };
+		18753D682602EE0A0024A4B7 /* ZoomDismissalInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomDismissalInteractionController.swift; sourceTree = "<group>"; };
+		18753D6B2602EE390024A4B7 /* ZoomTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionController.swift; sourceTree = "<group>"; };
+		18753D6E2602EE790024A4B7 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		18753D712602EEB50024A4B7 /* PhotoPageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPageContainerViewController.swift; sourceTree = "<group>"; };
+		18753D742602EEF10024A4B7 /* PhotoZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoZoomViewController.swift; sourceTree = "<group>"; };
+		187C338425E9060300C30C4D /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		187E254E246808E400BB2D30 /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		187E255024680BB600BB2D30 /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
-		187E255224681D1B00BB2D30 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		188054FB246A78FE00C0EDEC /* TweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetController.swift; sourceTree = "<group>"; };
 		188054FD246A7BF600C0EDEC /* TweetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetHeader.swift; sourceTree = "<group>"; };
 		1880CC0D2467BF2D00579560 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		1880CC0F2467C82F00579560 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
-		1881652F246ADBAE007507AF /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
-		18828F1824B02192000E22E7 /* default_V0.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_V0.realm; sourceTree = "<group>"; };
+		18823209263639740072A99A /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		18849C00246642D000656F0C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		18849C02246643FF00656F0C /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
-		18849C04246648C100656F0C /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		1886E1A12466050100FF02A2 /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
-		1886E1A32466134A00FF02A2 /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
 		1888FBE5251093A000F9F9E9 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		188B19ED25D9633200751AD5 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
+		188B19F025D9636400751AD5 /* UserCreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreateController.swift; sourceTree = "<group>"; };
+		188B6F9C25EA37D700AE2CD0 /* CurrentUserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserID.swift; sourceTree = "<group>"; };
+		188CFAFD25FCD09F00639D8C /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		189F203524ACBF0C00D2A0CE /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		189F203724ACBF6200D2A0CE /* EditProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeader.swift; sourceTree = "<group>"; };
 		189F203924ACBF9900D2A0CE /* EditProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileCell.swift; sourceTree = "<group>"; };
-		189F203B24ACBFC800D2A0CE /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
-		189F203F24ACC14900D2A0CE /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
-		18F328EE24867FDD006B03FC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		18ADE2EF25EB4EC3007E71E0 /* EditProfileFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooter.swift; sourceTree = "<group>"; };
+		18BB7BAF25ED0FB400844579 /* UploadTweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetCell.swift; sourceTree = "<group>"; };
+		18EB7CB32601BB3000FAEC4B /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		18F328EE24867FDD006B03FC /* CostomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostomView.swift; sourceTree = "<group>"; };
 		399E74D120763D6621F865BC /* Pods-TweetMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TweetMemo.release.xcconfig"; path = "Target Support Files/Pods-TweetMemo/Pods-TweetMemo.release.xcconfig"; sourceTree = "<group>"; };
 		8A89851D0A5D842853E16104 /* Pods-TodayTweet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayTweet.release.xcconfig"; path = "Target Support Files/Pods-TodayTweet/Pods-TodayTweet.release.xcconfig"; sourceTree = "<group>"; };
 		8D05441FB7EBBB1C961EA1C0 /* Pods-Every Tweet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Every Tweet.release.xcconfig"; path = "Target Support Files/Pods-Every Tweet/Pods-Every Tweet.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,16 +156,14 @@
 			children = (
 				1819661D2462A3D1007CE023 /* Model */,
 				1819661E2462A3DA007CE023 /* View */,
-				1819661F2462A3E2007CE023 /* ViewModel */,
-				181966202462A3EC007CE023 /* Controller */,
+				181966202462A3EC007CE023 /* ViewController */,
 				181966222462A3FE007CE023 /* Utils */,
+				18753D632602EDA90024A4B7 /* Animation */,
 				181966092462A344007CE023 /* AppDelegate.swift */,
 				1819660B2462A344007CE023 /* SceneDelegate.swift */,
-				1819660F2462A344007CE023 /* Main.storyboard */,
-				181966122462A345007CE023 /* Assets.xcassets */,
 				181966142462A345007CE023 /* LaunchScreen.storyboard */,
+				181966122462A345007CE023 /* Assets.xcassets */,
 				181966172462A345007CE023 /* Info.plist */,
-				18828F1824B02192000E22E7 /* default_V0.realm */,
 			);
 			path = TweetMemo;
 			sourceTree = "<group>";
@@ -166,49 +180,59 @@
 		1819661E2462A3DA007CE023 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1886E1A32466134A00FF02A2 /* CaptionTextView.swift */,
-				189F203F24ACC14900D2A0CE /* InputTextView.swift */,
-				18849C04246648C100656F0C /* TweetCell.swift */,
+				18EB7CB32601BB3000FAEC4B /* TweetCell.swift */,
 				188054FD246A7BF600C0EDEC /* TweetHeader.swift */,
 				1880CC0F2467C82F00579560 /* ProfileHeader.swift */,
 				187E254E246808E400BB2D30 /* ProfileFilterView.swift */,
 				187E255024680BB600BB2D30 /* ProfileFilterCell.swift */,
+				18823209263639740072A99A /* NotificationCell.swift */,
 				189F203724ACBF6200D2A0CE /* EditProfileHeader.swift */,
+				18ADE2EF25EB4EC3007E71E0 /* EditProfileFooter.swift */,
 				189F203924ACBF9900D2A0CE /* EditProfileCell.swift */,
+				188CFAFD25FCD09F00639D8C /* ImageCell.swift */,
+				18BB7BAF25ED0FB400844579 /* UploadTweetCell.swift */,
+				187C338425E9060300C30C4D /* UserListCell.swift */,
+				18753D6E2602EE790024A4B7 /* PhotoCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		1819661F2462A3E2007CE023 /* ViewModel */ = {
+		181966202462A3EC007CE023 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				187E255224681D1B00BB2D30 /* ProfileHeaderViewModel.swift */,
-				1881652F246ADBAE007507AF /* UploadTweetViewModel.swift */,
-				189F203B24ACBFC800D2A0CE /* EditProfileViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		181966202462A3EC007CE023 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
+				1801F23F2634EE5F001B652A /* MainTabController.swift */,
 				181966252462A689007CE023 /* FeedController.swift */,
+				1801F2462634EF16001B652A /* NotificationViewController.swift */,
 				1886E1A12466050100FF02A2 /* UploadTweetController.swift */,
-				1880CC0D2467BF2D00579560 /* ProfileController.swift */,
 				188054FB246A78FE00C0EDEC /* TweetController.swift */,
+				1880CC0D2467BF2D00579560 /* ProfileController.swift */,
 				189F203524ACBF0C00D2A0CE /* EditProfileController.swift */,
+				188B19ED25D9633200751AD5 /* UserListController.swift */,
+				188B19F025D9636400751AD5 /* UserCreateController.swift */,
+				18753D712602EEB50024A4B7 /* PhotoPageContainerViewController.swift */,
+				18753D742602EEF10024A4B7 /* PhotoZoomViewController.swift */,
 			);
-			path = Controller;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		181966222462A3FE007CE023 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				1819662D2462B196007CE023 /* Extensions.swift */,
-				18F328EE24867FDD006B03FC /* Utilities.swift */,
-				180297E3250360B000234B62 /* TweetService.swift */,
+				18F328EE24867FDD006B03FC /* CostomView.swift */,
+				188B6F9C25EA37D700AE2CD0 /* CurrentUserID.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		18753D632602EDA90024A4B7 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				18753D642602EDD60024A4B7 /* ZoomAnimator.swift */,
+				18753D682602EE0A0024A4B7 /* ZoomDismissalInteractionController.swift */,
+				18753D6B2602EE390024A4B7 /* ZoomTransitionController.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		CAEA03FA8CBC6DC722FA8667 /* Frameworks */ = {
@@ -282,9 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				181966162462A345007CE023 /* LaunchScreen.storyboard in Resources */,
-				18828F1924B02192000E22E7 /* default_V0.realm in Resources */,
 				181966132462A345007CE023 /* Assets.xcassets in Resources */,
-				181966112462A344007CE023 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,29 +359,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1886E1A42466134A00FF02A2 /* CaptionTextView.swift in Sources */,
+				187C338525E9060300C30C4D /* UserListCell.swift in Sources */,
 				188054FC246A78FE00C0EDEC /* TweetController.swift in Sources */,
 				187E254F246808E400BB2D30 /* ProfileFilterView.swift in Sources */,
-				18816530246ADBAE007507AF /* UploadTweetViewModel.swift in Sources */,
-				189F203C24ACBFC800D2A0CE /* EditProfileViewModel.swift in Sources */,
 				18849C03246643FF00656F0C /* Tweet.swift in Sources */,
 				188054FE246A7BF600C0EDEC /* TweetHeader.swift in Sources */,
+				18753D692602EE0A0024A4B7 /* ZoomDismissalInteractionController.swift in Sources */,
+				18753D752602EEF10024A4B7 /* PhotoZoomViewController.swift in Sources */,
+				188B19F125D9636400751AD5 /* UserCreateController.swift in Sources */,
+				18753D6C2602EE390024A4B7 /* ZoomTransitionController.swift in Sources */,
+				1801F2472634EF16001B652A /* NotificationViewController.swift in Sources */,
+				18BB7BB025ED0FB400844579 /* UploadTweetCell.swift in Sources */,
 				189F203824ACBF6200D2A0CE /* EditProfileHeader.swift in Sources */,
+				188B19EE25D9633200751AD5 /* UserListController.swift in Sources */,
+				18753D6F2602EE790024A4B7 /* PhotoCollectionViewCell.swift in Sources */,
 				187E255124680BB600BB2D30 /* ProfileFilterCell.swift in Sources */,
+				188CFAFE25FCD09F00639D8C /* ImageCell.swift in Sources */,
 				1819660A2462A344007CE023 /* AppDelegate.swift in Sources */,
 				1880CC0E2467BF2D00579560 /* ProfileController.swift in Sources */,
-				187E255324681D1B00BB2D30 /* ProfileHeaderViewModel.swift in Sources */,
 				1819662E2462B196007CE023 /* Extensions.swift in Sources */,
+				1801F2402634EE5F001B652A /* MainTabController.swift in Sources */,
+				18EB7CB42601BB3000FAEC4B /* TweetCell.swift in Sources */,
 				189F203A24ACBF9900D2A0CE /* EditProfileCell.swift in Sources */,
+				188B6F9D25EA37D700AE2CD0 /* CurrentUserID.swift in Sources */,
 				1880CC102467C82F00579560 /* ProfileHeader.swift in Sources */,
 				1819660C2462A344007CE023 /* SceneDelegate.swift in Sources */,
-				189F204024ACC14900D2A0CE /* InputTextView.swift in Sources */,
 				181966262462A689007CE023 /* FeedController.swift in Sources */,
+				1882320A263639740072A99A /* NotificationCell.swift in Sources */,
 				189F203624ACBF0C00D2A0CE /* EditProfileController.swift in Sources */,
-				180297E4250360B000234B62 /* TweetService.swift in Sources */,
-				18849C05246648C100656F0C /* TweetCell.swift in Sources */,
+				18753D722602EEB50024A4B7 /* PhotoPageContainerViewController.swift in Sources */,
 				1886E1A22466050100FF02A2 /* UploadTweetController.swift in Sources */,
-				18F328EF24867FDD006B03FC /* Utilities.swift in Sources */,
+				18753D652602EDD60024A4B7 /* ZoomAnimator.swift in Sources */,
+				18F328EF24867FDD006B03FC /* CostomView.swift in Sources */,
+				18ADE2F025EB4EC3007E71E0 /* EditProfileFooter.swift in Sources */,
 				18849C01246642D000656F0C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,14 +399,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1819660F2462A344007CE023 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				181966102462A344007CE023 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		181966142462A345007CE023 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -510,15 +534,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = CRC64A5SLW;
 				INFOPLIST_FILE = TweetMemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.nyandau5648.TweetMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -535,15 +559,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = CRC64A5SLW;
 				INFOPLIST_FILE = TweetMemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.nyandau5648.TweetMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

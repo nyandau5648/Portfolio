@@ -1,23 +1,20 @@
-//
-//  EditProfileHeader.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/07/01.
-//  Copyright © 2020 Newton. All rights reserved.
-//
+
 
 import UIKit
 import RealmSwift
 
-protocol EditProfileHeaderDelegate: class {
+protocol EditProfileHeaderDelegate: AnyObject {
     func didTapChangeProfilePhoto()
 }
+
+private let realm = try! Realm()
+private let userObject = Array(realm.objects(User.self))
+private let tweetObject = Array(realm.objects(Tweet.self))
 
 class EditProfileHeader: UIView {
     
     // MARK: - Properties
     
-    private let user: Results<User>!
     weak var delegate: EditProfileHeaderDelegate?
     
     let profileImageView: UIImageView = {
@@ -32,7 +29,7 @@ class EditProfileHeader: UIView {
         return iv
     }()
     
-    private let changePhotoButton: UIButton = {
+    let changePhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Change Profile Photo", for: .normal)
         button.addTarget(self, action: #selector(handleChangeProfilePhoto), for: .touchUpInside)
@@ -43,8 +40,7 @@ class EditProfileHeader: UIView {
     
     // MARK: - Lifecycle
     
-    init(user: Results<User>!){
-        self.user = user
+    init(){
         super.init(frame: .zero)
         
         isUserInteractionEnabled = true
@@ -56,8 +52,6 @@ class EditProfileHeader: UIView {
         profileImageView.setDimensions(width: 100, height: 100)
         profileImageView.layer.cornerRadius = 100 / 2
         
-        self.configure()
-        
         addSubview(changePhotoButton)
         changePhotoButton.centerX(inView: self, topAnchor: profileImageView.bottomAnchor, paddingTop: 8)
     }
@@ -68,21 +62,8 @@ class EditProfileHeader: UIView {
     
     // MARK: - Selectors
     
-    @objc func handleChangeProfilePhoto(){
+    @objc private func handleChangeProfilePhoto(){
         delegate?.didTapChangeProfilePhoto()
     }
-    
-    func configure(){
-        let realm = try! Realm()
-        try! realm.write {
-            let userObject = realm.objects(User.self)
-            if userObject[0].profileImage != nil {
-                profileImageView.image = UIImage(data: userObject[0].profileImage!)
-            } else {
-                profileImageView.image = UIImage(named: "placeholderImg")
-            }
-        }
-    }
- 
     
 }

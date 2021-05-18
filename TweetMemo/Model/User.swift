@@ -1,9 +1,3 @@
-//
-//  User.swift
-//
-//  Created by Newton on 2020/05/09.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -16,8 +10,8 @@ class User: Object {
     @objc dynamic var username: String = ""
     @objc dynamic var profileText: String? = ""
     @objc dynamic var profileImage: Data? = nil
-    
-    var tweets = List<Tweet>()
+
+    var followUserList = List<Int>()
     
     override static func primaryKey() -> String? {
         return "id"

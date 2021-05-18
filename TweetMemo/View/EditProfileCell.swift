@@ -1,26 +1,19 @@
-//
-//   EditProfileCell.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/07/01.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import UIKit
+import RealmSwift
 
-protocol EditProfileCellDelegate: class {
-    func updateUserInfo(_ cell: EditProfileCell)
+protocol EditProfileCellDelegate: AnyObject {
+    func updateUserInfo(_ cell: EditProfileCell, option: EditProfileOptions)
 }
 
-class EditProfileCell: UITableViewCell {
+private let realm = try! Realm()
+private let userObject = realm.objects(User.self)
+
+class EditProfileCell: UITableViewCell, UITextViewDelegate {
     
     // MARK: - Properties
     
-    var viewModel: EditProfileViewModel? {
-        didSet {
-            configure()
-        }
-    }
+    let currentUser = CurrentUser.shared
     
     weak var delegate: EditProfileCellDelegate?
     
@@ -40,35 +33,62 @@ class EditProfileCell: UITableViewCell {
         return tf
     }()
     
-    let profileTextView: InputTextView = {
-        let tv = InputTextView()
+    let profileTextView: UITextView = {
+        let tv = UITextView()
         tv.font = UIFont.systemFont(ofSize: 14)
         tv.textColor = .twitterBlue
-        tv.placeholderLabel.text = "Profile"
+        tv.text = "Profile"
         return tv
     }()
+    
+    var option: EditProfileOptions = .fullname
+
+    var shouldHidePlaceholderLabel: Bool {
+        return currentUser.user!.profileText != nil
+    }
+    
+    var shouldHideTextView: Bool {
+        option != .profile
+    }
+    
+    var shouldHideTextField: Bool {
+        option == .profile
+    }
+    
+    var titleText: String {
+        option.description
+    }
+    
+    var optionValue: String? {
+        switch option {
+        case .fullname: return currentUser.user?.fullname
+        case .username: return currentUser.user?.username
+        case .profile: return currentUser.user!.profileText
+        }
+    }
     
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        self.commonInit()
+        commonInit()
         
-        self.contentView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         titleLabel.contentHuggingPriority(for: NSLayoutConstraint.Axis(rawValue: 750)!)
         titleLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 12, paddingLeft: 16)
         
-        self.contentView.addSubview(infoTextField)
+        contentView.addSubview(infoTextField)
         infoTextField.translatesAutoresizingMaskIntoConstraints = false
         infoTextField.contentHuggingPriority(for: NSLayoutConstraint.Axis(rawValue: 750)!)
         infoTextField.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 16, paddingRight: 8)
     
-        self.contentView.addSubview(profileTextView)
+        contentView.addSubview(profileTextView)
         profileTextView.translatesAutoresizingMaskIntoConstraints = false
         profileTextView.contentHuggingPriority(for: NSLayoutConstraint.Axis(rawValue: 750)!)
+        profileTextView.isScrollEnabled = true
         profileTextView.anchor(top: topAnchor, left: titleLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 14, paddingRight: 8)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateUserInfo), name: UITextView.textDidEndEditingNotification, object: nil)
@@ -84,11 +104,11 @@ class EditProfileCell: UITableViewCell {
     
     // MARK: - Selector
     
-    @objc func handleUpdateUserInfo(){
-        delegate?.updateUserInfo(self)
+    @objc private func handleUpdateUserInfo(){
+        delegate?.updateUserInfo(self, option: option)
     }
     
-    @objc func textViewDidChange(notification: NSNotification){
+    @objc private func textViewDidChange(notification: NSNotification){
         let maxLength = 100
         let textView = notification.object as! UITextView
         if textView == profileTextView {
@@ -110,42 +130,40 @@ class EditProfileCell: UITableViewCell {
                     textView.text = text.prefix(countCharacter).description
                 }
             }
-        }else{
-            return
         }
     }
     
-    // MARK: - Helpers
+    @objc private func closeButtonTapped(){
+        endEditing(true)
+        resignFirstResponder()
+    }
     
-    func configure(){
-        guard let viewModel = viewModel else { return }
-        titleLabel.text = viewModel.titleText
-        infoTextField.text = viewModel.optionValue
-        profileTextView.text = viewModel.optionValue
-        switch viewModel.option {
-        case .username:
-            profileTextView.isHidden = viewModel.shouldHideTextView
+    // MARK: - UI
+    
+    func configure(option: EditProfileOptions){
+        self.option = option
+        titleLabel.text = titleText
+        infoTextField.text = optionValue
+        profileTextView.text = optionValue
+        switch option {
         case .fullname:
-            profileTextView.isHidden = viewModel.shouldHideTextView
+            profileTextView.isHidden = shouldHideTextView
+        case .username:
+            profileTextView.isHidden = shouldHideTextView
         case .profile:
-            infoTextField.isHidden = viewModel.shouldHideTextField
+            infoTextField.isHidden = shouldHideTextField
         }
-        profileTextView.placeholderLabel.isHidden = viewModel.shouldHidePlaceholderLabel
     }
     
-    public func commonInit(){
+    func commonInit(){
         let tools = UIToolbar()
         tools.frame = CGRect(x: 0, y: 0, width: frame.width, height: 40)
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeButtonTapped))
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(closeButtonTapped))
         tools.items = [spacer, closeButton]
         infoTextField.inputAccessoryView = tools
         profileTextView.inputAccessoryView = tools
     }
     
-    @objc func closeButtonTapped(){
-        self.endEditing(true)
-        self.resignFirstResponder()
-    }
-    
 }
+

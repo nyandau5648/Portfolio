@@ -1,12 +1,7 @@
-//
-//  Extensions.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/05/06.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import UIKit
+
+// MARK: UIView
 
 extension UIView {
     func anchor(top: NSLayoutYAxisAnchor? = nil,
@@ -96,3 +91,44 @@ extension UIColor {
     static let twitterBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
 }
 
+// MARK: UIImage
+
+extension UIImage {
+
+    func toPNGData() -> Data {
+        guard let data = self.pngData() else {
+            print("The image could not be converted to PNG data.")
+            return Data()
+        }
+        return data as Data
+    }
+
+    func toJPEGData() -> Data {
+        guard let data = self.jpegData(compressionQuality: 1.0) else {
+            print("The image could not be converted to JPEG data.")
+            return Data()
+        }
+        return data as Data
+    }
+
+}
+
+// MARK: UIAlertController
+
+extension UIAlertController {
+    
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        pruneNegativeWidthConstraints()
+    }
+
+    public func pruneNegativeWidthConstraints() {
+        if #available(iOS 13.0, *) {
+            for subView in self.view.subviews {
+                for constraint in subView.constraints where constraint.debugDescription.contains("width == - 16") {
+                    subView.removeConstraint(constraint)
+                }
+            }
+        }
+    }
+}

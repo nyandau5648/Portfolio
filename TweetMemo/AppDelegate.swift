@@ -16,104 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let defaults = UserDefaults()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        openRealm()
-        self.realmMigration()
-        let dic = ["initialLaunch": true]
-        defaults.register(defaults: dic)
-        defaults.synchronize()
-
-        if defaults.bool(forKey: "initialLaunch") == true {
-            print("initial setup start")
-            self.initialSetUp()
-        }
         
+        openRealm()
+        realmVersion()
+        
+        // Splash Loading
+        sleep(2)
         return true
     }
     
-    func initialSetUp() {
-        self.realmMigration()
-        self.defaults.set(false, forKey: "initialLaunch")
-        self.defaults.synchronize()
-    }
-    
-    func realmMigration(){
-        var config = Realm.Configuration(schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in
-            
-            if oldSchemaVersion < 1 {
-                migration.enumerateObjects(ofType: User.className()) { oldObject, newObject in
-                    let username = oldObject!["username"] as! String
-                    let fullname = oldObject!["fullname"] as! String
-                    let profileText = oldObject?["profileText"] as? String
-                    let profileImage = oldObject!["profileImage"] as! Data
-                    let tweets = oldObject!["tweets"] as? List<Tweet>
-                    newObject!["username"] = username
-                    newObject!["fullname"] = fullname
-                    newObject!["profileImage"] = profileImage
-                    newObject?["profieText"] = profileText
-                    newObject?["tweets"] = tweets
-                }
-                migration.enumerateObjects(ofType: Tweet.className()) { oldObject, newObject in
-                    let caption = oldObject!["caption"] as! String
-                    let timestamp = oldObject!["timestamp"] as! Date
-                    let retweetCount = oldObject?["retweetCount"] as! Int
-                    let likes = oldObject!["likes"] as! Int
-                    let didLike = oldObject!["didLike"] as! Bool
-                    let replyingTo = oldObject!["replyingTo"] as! String
-                    let isReply = oldObject!["isReply"] as! Bool
-                    let replyTweet = oldObject!["replyTweet"] as? List<ReplyTweet>
-                    newObject!["caption"] = caption
-                    newObject!["timestamp"] = timestamp
-                    newObject?["retweetCount"] = retweetCount
-                    newObject?["likes"] = likes
-                    newObject?["didLike"] = didLike
-                    newObject?["replyingTo"] = replyingTo
-                    newObject?["isReply"] = isReply
-                    newObject?["replyTweet"] = replyTweet
-                }
-                migration.enumerateObjects(ofType: ReplyTweet.className()) { oldObject, newObject in
-                    let replyCaption = oldObject!["replyCaption"] as! String
-                    let replyTimeStamp = oldObject!["replyTimeStamp"] as! Date
-                    let replyRetweetCount = oldObject?["replyRetweetCount"] as! Int
-                    let likes = oldObject!["likes"] as! Int
-                    let didLike = oldObject!["didLike"] as! Bool
-                    let replyingTo = oldObject!["replyingTo"] as! String
-                    let isReply = oldObject!["isReply"] as! Bool
-                    newObject!["replyCaption"] = replyCaption
-                    newObject!["replyTimeStamp"] = replyTimeStamp
-                    newObject?["replyRetweetCount"] = replyRetweetCount
-                    newObject?["likes"] = likes
-                    newObject?["didLike"] = didLike
-                    newObject?["replyingTo"] = replyingTo
-                    newObject?["isReply"] = isReply
-                }
-            }
-            if oldSchemaVersion < 2 {
+    func realmVersion(){
+        let config = Realm.Configuration(schemaVersion: 20, migrationBlock: { migration, oldSchemaVersion in
+            if oldSchemaVersion < 20 {
             }
         })
-        config.schemaVersion += 1
         Realm.Configuration.defaultConfiguration = config
     }
     
     func openRealm() {
         let defaultRealmPath = Realm.Configuration.defaultConfiguration.fileURL!
-        let bundleRealmPath = Bundle.main.url(forResource: "default_V0", withExtension: "realm")
-        if FileManager.default.fileExists(atPath: defaultRealmPath.path) {
-            return
-        }
-        do {
-            try FileManager.default.copyItem(at: bundleRealmPath!, to: defaultRealmPath)
-        } catch let error {
-            print("error copying realm file: \(error)")
-        }
-        
-        if !FileManager.default.fileExists(atPath: defaultRealmPath.path) {
-            do {
-                try FileManager.default.copyItem(at: bundleRealmPath!, to: defaultRealmPath)
-            } catch let error {
-                print("error copying seeds: \(error)")
-            }
-        }
-        
+        print("FilePath: \(defaultRealmPath)")
     }
     // MARK: UISceneSession Lifecycle
 

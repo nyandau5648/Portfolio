@@ -9,16 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Every Tweet.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-TodayTweet.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-TweetMemo.xcscheme</key>
 		<dict>
 			<key>isShown</key>

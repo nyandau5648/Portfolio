@@ -1,33 +1,26 @@
-//
-//  ProfileHeader.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/05/10.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import UIKit
 import RealmSwift
+import ActiveLabel
 
-protocol ProfileHeaderDelegate: class {
+protocol ProfileHeaderDelegate: AnyObject {
     func handleDismissal()
     func handleEditProfileFollow(_ header: ProfileHeader)
     func didSelect(filter: ProfileFilterOptions)
 }
 
+private let realm = try! Realm()
+private let userObject = realm.objects(User.self)
+
 class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Properties
     
-    var user: Results<User>! {
-        didSet { configure() }
-    }
-    
     weak var delegate: ProfileHeaderDelegate!
     
-    private let filterBar = ProfileFilterView()
+    let filterBar = ProfileFilterView()
     
-    private lazy var containerView: UIView = {
+    lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .twitterBlue
         view.addSubview(backButton)
@@ -36,14 +29,14 @@ class ProfileHeader: UICollectionReusableView {
         return view
     }()
     
-    private lazy var backButton: UIButton = {
+    lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "baseline_arrow_back_white_24dp").withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
         return button
     }()
     
-    private lazy var profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "placeholderImg")
         iv.contentMode = .scaleAspectFill
@@ -65,28 +58,29 @@ class ProfileHeader: UICollectionReusableView {
         return button
     }()
     
-    private let fullnameLabel: UILabel = {
+    let fullnameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
-    private let usernameLabel: UILabel = {
+    let usernameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
-        label.text = "@attacker"
         return label
     }()
     
-    private let profileLabel: UILabel = {
-        let label = UILabel()
+    let profileLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
-    private let underlineView: UIView = {
+    let underlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .twitterBlue
         return view
@@ -128,6 +122,8 @@ class ProfileHeader: UICollectionReusableView {
         
         addSubview(underlineView)
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, width: frame.width / 3, height: 2)
+        
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -136,29 +132,18 @@ class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Selecter
     
-    @objc func handleDismissal(){
+    @objc private func handleDismissal(){
         delegate?.handleDismissal()
     }
     
-    @objc func handleEditProfileFollow(){
+    @objc private func handleEditProfileFollow(){
         delegate?.handleEditProfileFollow(self)
     }
     
     // MARK: - Helper
     
     func configure(){
-        let realm = try! Realm()
-        try! realm.write {
-            let userObject = realm.objects(User.self)
-            fullnameLabel.text = userObject[0].fullname
-            usernameLabel.text = "@" + userObject[0].username
-            profileLabel.text = userObject[0].profileText
-            if userObject[0].profileImage != nil {
-                profileImageView.image = UIImage(data: userObject[0].profileImage!)
-            } else {
-                profileImageView.image = UIImage(named: "placeholderImg")
-            }
-        }
+        backgroundColor = UIColor(named: "Mode")
     }
     
 }
@@ -169,8 +154,6 @@ extension ProfileHeader: ProfileFilterViewDelegate {
 
     func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath) {
         guard let filter = ProfileFilterOptions(rawValue: indexPath.row) else { return }
-//        print("DEBUG: Delegate action from header to controller with filter \(filter.description)")
-        
         guard let cell = view.collectionView.cellForItem(at: indexPath) as? ProfileFilterCell else { return }
         let xPosition = cell.frame.origin.x
         UIView.animate(withDuration: 0.3) {

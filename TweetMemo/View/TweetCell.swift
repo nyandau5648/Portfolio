@@ -1,21 +1,16 @@
-//
-//  TweetCell.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/05/09.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import UIKit
 import RealmSwift
 import ActiveLabel
 
-protocol TweetCellDelegate: class {
+protocol TweetCellDelegate: AnyObject {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
+    func handleRetweetTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
     func handleShareTapped(_ cell: TweetCell)
     func deleteActionSheet(_ cell: TweetCell)
+    func selectedImageView(_ imageView: UIImageView, tag: Int, imageURLs: List<CellImageURL>)
 }
 
 private let realm = try! Realm()
@@ -26,19 +21,14 @@ class TweetCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var tweets: Tweet = Tweet() {
-        didSet { configure() }
-    }
-    
-    var replyTweets: ReplyTweet = ReplyTweet() {
-        didSet { configure() }
-    }
-    
-    private var user: Results<User>!
+    let currentUser = CurrentUser.shared
+     
+    var tweets: Tweet = Tweet()
+    var replyTweets: ReplyTweet = ReplyTweet()
     
     weak var delegate: TweetCellDelegate?
     
-    private lazy var profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.image = UIImage(named: "placeholderImg")
@@ -51,7 +41,7 @@ class TweetCell: UICollectionViewCell {
         return iv
     }()
     
-    private let replyLabel: ActiveLabel = {
+    let replyLabel: ActiveLabel = {
         let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 12)
@@ -59,7 +49,7 @@ class TweetCell: UICollectionViewCell {
         return label
     }()
     
-    public let captionLabel: ActiveLabel = {
+    let captionLabel: ActiveLabel = {
         let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.lineBreakMode = .byWordWrapping
@@ -69,7 +59,7 @@ class TweetCell: UICollectionViewCell {
         return label
     }()
     
-    public lazy var commentButton: UIButton = {
+    lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "outline_mode_comment_black_24pt_1x"), for: .normal)
         button.tintColor = .darkGray
@@ -78,7 +68,16 @@ class TweetCell: UICollectionViewCell {
         return button
     }()
     
-    public lazy var likeButton: UIButton = {
+    lazy var retweetButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "outline_autorenew_black_24pt_1x"), for: .normal)
+        button.tintColor = .darkGray
+        button.setDimensions(width: 20, height: 20)
+        button.addTarget(self, action: #selector(handleRetweetTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "like_unselected"), for: .normal)
         button.tintColor = .lightGray
@@ -87,7 +86,7 @@ class TweetCell: UICollectionViewCell {
         return button
     }()
     
-    public lazy var shareButton: UIButton = {
+    lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "outline_share_black_24pt_1x"), for: .normal)
         button.tintColor = .darkGray
@@ -96,7 +95,7 @@ class TweetCell: UICollectionViewCell {
         return button
     }()
     
-    private lazy var optionButton: UIButton = {
+    lazy var optionButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "baseline_keyboard_arrow_down_black_24pt_1x-1"), for: .normal)
         button.tintColor = .lightGray
@@ -104,88 +103,128 @@ class TweetCell: UICollectionViewCell {
         return button
     }()
     
-    public let infoLabel = UILabel()
+    let infoLabel = UILabel()
     
-    var usernameText: String {
-        return "@\(userObject[0].username)"
-    }
+    var imageURLs = List<CellImageURL>()
+     
+    var imageContainer = UIStackView()
     
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        backgroundColor = .white
-        
-        addSubview(profileImageView)
-        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
-        
-        let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
-        stack.axis = .vertical
-        stack.spacing = 8
-        stack.distribution = .fillProportionally
-        
-        addSubview(stack)
-        stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 12, paddingRight: 12)
-        
-        infoLabel.font = UIFont.systemFont(ofSize: 14)
-        
-        let actionStack = UIStackView(arrangedSubviews: [commentButton, likeButton, shareButton])
-        actionStack.axis = .horizontal
-        actionStack.spacing = 96
-        
-        addSubview(actionStack)
-        actionStack.centerX(inView: self)
-        actionStack.anchor(top: stack.bottomAnchor,bottom: bottomAnchor, paddingTop: 8, paddingBottom: 8)
-        
-        let underlineView = UIView()
-        underlineView.backgroundColor = .systemGroupedBackground
-        addSubview(underlineView)
-        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 1)
-        
-        addSubview(optionButton)
-        optionButton.anchor(top: topAnchor, right: stack.rightAnchor, paddingTop: 8, paddingRight: 8)
-        
         configure()
+        backgroundColor = UIColor(named: "Mode")
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+     
+     
+     override func prepareForReuse() {
+         super.prepareForReuse()
+         tweets = Tweet()
+         replyTweets = ReplyTweet()
+         captionLabel.text = ""
+         replyLabel.text = ""
+         infoLabel.attributedText = nil
+         profileImageView.image = nil
+         imageURLs = List<CellImageURL>()
+         imageContainer.removeFromSuperview()
+     }
     
     // MARK: - Selecter
     
-    @objc func handleProfileImageTapped(){
+    @objc private func handleProfileImageTapped(){
         delegate?.handleProfileImageTapped(self)
     }
     
-    @objc func handleCommentTapped(){
+    @objc private func handleRetweetTapped(){
+        delegate?.handleRetweetTapped(self)
+    }
+    
+    @objc private func handleCommentTapped(){
         delegate?.handleReplyTapped(self)
     }
     
-    @objc func handleLikeTapped(){
+    @objc private func handleLikeTapped(){
         delegate?.handleLikeTapped(self)
     }
     
-    @objc func handleShareTapped(){
+    @objc private func handleShareTapped(){
         delegate?.handleShareTapped(self)
     }
     
-    @objc func showActionSheet(){
+    @objc private func showActionSheet(){
         delegate?.deleteActionSheet(self)
     }
     
-    // MARK: - Helper
-    
-    public func configure(){
-        if userObject[0].profileImage != nil {
-            self.profileImageView.image = UIImage(data: userObject[0].profileImage!)
+    // MARK: - UI
+     
+    func configure(){
+        addSubview(profileImageView)
+        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
+        let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillProportionally
+        addSubview(stack)
+        stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 12, paddingRight: 12)
+        infoLabel.font = UIFont.systemFont(ofSize: 14)
+        let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton,likeButton, shareButton])
+        actionStack.axis = .horizontal
+        actionStack.spacing = 72
+        addSubview(actionStack)
+        actionStack.centerX(inView: self)
+        if !imageURLs.isEmpty {
+            let vstack1 = UIStackView()
+            vstack1.axis = .vertical
+            vstack1.spacing = 2
+            vstack1.distribution = .fillEqually
+            vstack1.contentHuggingPriority(for: NSLayoutConstraint.Axis(rawValue: 750)!)
+            let vstack2 = UIStackView()
+            vstack2.axis = .vertical
+            vstack2.spacing = 2
+            vstack2.distribution = .fillEqually
+            vstack2.isHidden = imageURLs.count == 1
+            vstack2.contentHuggingPriority(for: NSLayoutConstraint.Axis(rawValue: 750)!)
+            imageContainer = UIStackView(arrangedSubviews: [vstack1, vstack2])
+            imageContainer.axis = .horizontal
+            imageContainer.spacing = 2
+            imageContainer.distribution = .fillEqually
+            addSubview(imageContainer)
+            imageContainer.leadingAnchor.constraint(equalTo: captionLabel.leadingAnchor).isActive = true
+            imageContainer.topAnchor.constraint(equalTo: captionLabel.bottomAnchor).isActive = true
+            imageContainer.anchor(top: captionLabel.bottomAnchor, left: captionLabel.leftAnchor, bottom: actionStack.topAnchor, right: self.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 8, paddingRight: 8, height: 160)
+            imageContainer.contentHuggingPriority(for: NSLayoutConstraint.Axis(rawValue: 750)!)
+            actionStack.anchor(top: imageContainer.bottomAnchor,bottom: bottomAnchor, paddingTop: 8, paddingBottom: 8)
+            imageURLs.enumerated().forEach { index, image in
+                let path = fileInDocumentsDirectory(filename: image.imageURL)
+                let imageView = UIImageView()
+                imageView.isUserInteractionEnabled = true
+                imageView.image = UIImage(contentsOfFile: path)
+                imageView.tag = index
+                if index % 2 == 0 {
+                    vstack1.addArrangedSubview(imageView)
+                } else {
+                    vstack2.addArrangedSubview(imageView)
+                }
+                imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageViewTappedGesture(_:))))
+            }
         } else {
-            profileImageView.image = UIImage(named: "placeholderImg")
+            actionStack.anchor(top: stack.bottomAnchor,bottom: bottomAnchor, paddingTop: 8, paddingBottom: 8)
         }
+        let underlineView = UIView()
+        underlineView.backgroundColor = .systemGroupedBackground
+        addSubview(underlineView)
+        underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 1)
+        addSubview(optionButton)
+        optionButton.anchor(top: topAnchor, right: stack.rightAnchor, paddingTop: 8, paddingRight: 8)
     }
     
-    func createButton(withImageName imageName: String) -> UIButton {
+    private func createButton(withImageName imageName: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: imageName), for: .normal)
         button.tintColor = .darkGray
@@ -193,13 +232,22 @@ class TweetCell: UICollectionViewCell {
         return button
     }
     
-    func size(_ cell: TweetCell,forWidth width: CGFloat) -> CGSize {
-        let measurementLabel = UILabel()
-        measurementLabel.numberOfLines = 0
-        measurementLabel.lineBreakMode = .byWordWrapping
-        measurementLabel.translatesAutoresizingMaskIntoConstraints = false
-        measurementLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
-        return measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    @objc func imageViewTappedGesture(_ sender: UITapGestureRecognizer){
+        let view = sender.view
+        let tag = (sender.view?.tag)!
+        delegate?.selectedImageView(view! as! UIImageView, tag: tag, imageURLs: imageURLs)
+    }
+    
+    // MARK: - Documents
+    
+    private func getDocumentsURL() -> NSURL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+        return documentsURL
+    }
+    
+    private func fileInDocumentsDirectory(filename: String) -> String {
+        let fileURL = getDocumentsURL().appendingPathComponent(filename)
+        return fileURL!.path
     }
     
 }

@@ -1,22 +1,15 @@
-//
-//  ProfileFilterView.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/05/10.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import UIKit
 
-private let reuseIdentifier = "ProfileFilterCell"
-
-protocol ProfileFilterViewDelegate: class {
+protocol ProfileFilterViewDelegate: AnyObject {
     func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath)
 }
 
 class ProfileFilterView: UIView {
     
     // MARK: - Properties
+    
+    private let reuseIdentifier = "ProfileFilterCell"
     
     weak var delegate: ProfileFilterViewDelegate?
     
@@ -29,7 +22,7 @@ class ProfileFilterView: UIView {
         return cv
     }()
     
-    private let underlineView: UIView = {
+    let underlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .twitterBlue
         return view
@@ -40,6 +33,7 @@ class ProfileFilterView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        collectionView.backgroundColor = UIColor(named: "Mode")
         collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         let selectedIndexPath = IndexPath(row: 0, section: 0)
@@ -66,7 +60,6 @@ extension ProfileFilterView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
         let option = ProfileFilterOptions(rawValue: indexPath.row)
-//        print("DEBUG: Option Tweet is \(String(describing: option))")
         cell.option = option
         return cell
     }
@@ -82,13 +75,9 @@ extension ProfileFilterView: UICollectionViewDelegate {
         
         let cell = self.collectionView.cellForItem(at: indexPath)
         let xPosition = cell!.frame.origin.x 
-        
         UIView.animate(withDuration: 0.3) {
             self.underlineView.frame.origin.x = xPosition
         }
-        
-//        print("XPosition is \(xPosition)")
-//        print("DEBUG: Delegate action to profile header from filter bar...")
         delegate?.filterView(self, didSelect: indexPath)
     }
     

@@ -1,10 +1,3 @@
-//
-//  ProfileFilterCell.swift
-//  TweetMemo
-//
-//  Created by Newton on 2020/05/10.
-//  Copyright © 2020 Newton. All rights reserved.
-//
 
 import UIKit
 
@@ -34,7 +27,7 @@ class ProfileFilterCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "Mode")
         addSubview(titleLabel)
         titleLabel.center(inView: self)
     }
